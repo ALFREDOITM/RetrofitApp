@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                         for (stat in stats){
                             Log.d("retrofitresponse", "${stat.stat.name}: ${stat.base_stat}")
                         }
-                        binding.tvPoke.setText()
+                        binding.tvPoke.setText("name: ${resBody.name}"+"type: ${type}")
                     }
                 }
 
