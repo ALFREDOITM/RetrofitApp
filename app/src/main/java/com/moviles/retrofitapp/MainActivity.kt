@@ -26,32 +26,32 @@ class MainActivity : AppCompatActivity() {
         button = findViewById(R.id.btnUpdatePokemon)
 
         button.setOnClickListener{
-            val convertToInt = Integer.parseInt(editText.text.toString())
-            val retrofit = RetrofitBuilder.create().getPokemonById(convertToInt)
-        }
-
-        val retrofit = RetrofitBuilder.create().getPokemonById("27")
-
-        retrofit.enqueue(object: Callback<PokemonEntry> {
-            override fun onResponse(call: Call<PokemonEntry>, response: Response<PokemonEntry>) {
-                val resBody = response.body()
-                if(resBody != null) {
-                    Log.d("retrofitresponse", "front_default: ${resBody.sprites.front_default}")
-                    Log.d("retrofitresponse", "name: ${resBody.name}")
-                    val typesArray = resBody.types
-                    val type = typesArray[0].type.name
-                    Log.d("retrofitresponse", "type: ${type}")
-                    val stats = resBody.stats
-                    for (stat in stats){
-                        Log.d("retrofitresponse", "${stat.stat.name}: ${stat.base_stat}")
+            val retrofit = RetrofitBuilder.create().getPokemonById(editText.text.toString())
+            retrofit.enqueue(object: Callback<PokemonEntry> {
+                override fun onResponse(call: Call<PokemonEntry>, response: Response<PokemonEntry>) {
+                    val resBody = response.body()
+                    if(resBody != null) {
+                        Log.d("retrofitresponse", "front_default: ${resBody.sprites.front_default}")
+                        Log.d("retrofitresponse", "name: ${resBody.name}")
+                        val typesArray = resBody.types
+                        val type = typesArray[0].type.name
+                        Log.d("retrofitresponse", "type: ${type}")
+                        val stats = resBody.stats
+                        for (stat in stats){
+                            Log.d("retrofitresponse", "${stat.stat.name}: ${stat.base_stat}")
+                        }
                     }
                 }
-            }
 
-            override fun onFailure(call: Call<PokemonEntry>, t: Throwable) {
-                Log.e("retrofitresponse", "error: ${t.message}")
-            }
-        })
+                override fun onFailure(call: Call<PokemonEntry>, t: Throwable) {
+                    Log.e("retrofitresponse", "error: ${t.message}")
+                }
+            })
+        }
+
+        //val retrofit = RetrofitBuilder.create().getPokemonById("27")
+
+
 
     }
 }
