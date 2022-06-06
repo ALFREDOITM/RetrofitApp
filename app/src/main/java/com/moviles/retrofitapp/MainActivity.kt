@@ -37,10 +37,12 @@ class MainActivity : AppCompatActivity() {
                         val type = typesArray[0].type.name
                         Log.d("retrofitresponse", "type: ${type}")
                         val stats = resBody.stats
+                        var string = ""
                         for (stat in stats){
+                            string="${stat.stat.name}: ${stat.base_stat}"
                             Log.d("retrofitresponse", "${stat.stat.name}: ${stat.base_stat}")
                         }
-                        binding.tvPoke.setText("name: ${resBody.name}"+"type: ${type}")
+                        binding.tvPoke.setText("name: ${resBody.name}"+" type: ${type}" + " " +string)
                     }
                 }
 
